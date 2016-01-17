@@ -86,5 +86,7 @@ public class SystemSettings {
         Settings.System.NOTIFICATION_LIGHT_PULSE,
         Settings.System.ACCENT_COLOR,
         Settings.System.SCREENSHOT_SOUND,
+        Settings.System.TORCH_LONG_PRESS_POWER_GESTURE,
+        Settings.System.TORCH_LONG_PRESS_POWER_TIMEOUT,
     };
 }
