@@ -27,5 +27,7 @@
     <dimen name="qs_media_action_button_size">40dp</dimen>
     
     <dimen name="op_volume_dialog_icon_size">62px</dimen>
+    <!-- Volume panel -->
+    <dimen name="volume_dialog_panel_transparent_padding_left">20dp</dimen>
 
 </resources>
