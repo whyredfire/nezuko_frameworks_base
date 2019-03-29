@@ -4832,7 +4832,7 @@ public final class Settings {
          */
         public static final String QS_COLUMNS_LANDSCAPE = "qs_columns_landscape";
 
-        /* 
+        /**
          * @hide
          */
         public static final String GLOBAL_ACTIONS_LIST = "global_actions_list";
