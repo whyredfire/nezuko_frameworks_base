@@ -5750,5 +5750,9 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             return state.contains(HDMI_EXIST);
         }
     }
-
+    @Override
+    public void takeAlternativeScreenshot() {
+        mScreenshotRunnable.setScreenshotType(TAKE_SCREENSHOT_FULLSCREEN);
+        mHandler.post(mScreenshotRunnable);
+    }
 }
