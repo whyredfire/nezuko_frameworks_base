@@ -155,6 +155,8 @@ public class QuickStatusBarHeader extends RelativeLayout implements
     private boolean mAllIndicatorsEnabled;
     private boolean mMicCameraIndicatorsEnabled;
 
+    private BatteryMeterView mBatteryMeterView;
+
     private PrivacyItemController mPrivacyItemController;
     private final UiEventLogger mUiEventLogger;
     // Used for RingerModeTracker
@@ -235,6 +237,12 @@ public class QuickStatusBarHeader extends RelativeLayout implements
         iconContainer.setShouldRestrictIcons(false);
         mIconManager = new TintedIconManager(iconContainer, mCommandQueue);
 
+        mBatteryMeterView = findViewById(R.id.battery);
+        mBatteryMeterView.setForceShowPercent(true);
+        mBatteryMeterView.setIgnoreTunerUpdates(true);
+        mBatteryMeterView.setOnClickListener(this);
+        mBatteryMeterView.setPercentShowMode(BatteryMeterView.MODE_ESTIMATE);
+
         // Views corresponding to the header info section (e.g. ringer and next alarm).
         mHeaderTextContainerView = findViewById(R.id.header_text_container);
         mStatusSeparator = findViewById(R.id.status_separator);
@@ -271,9 +279,10 @@ public class QuickStatusBarHeader extends RelativeLayout implements
         mClockView.setOnClickListener(this);
         mDateView = findViewById(R.id.date);
         mSpace = findViewById(R.id.space);
+        mDateView.setOnClickListener(this);
 
         // Tint for the battery icons are handled in setupHost()
-        mBatteryRemainingIcon = findViewById(R.id.batteryRemainingIcon);
+        mBatteryRemainingIcon = findViewById(R.id.battery);
         // Don't need to worry about tuner settings for this icon
         mBatteryRemainingIcon.setIgnoreTunerUpdates(true);
         // QS will always show the estimate, and BatteryMeterView handles the case where
@@ -674,6 +683,15 @@ public class QuickStatusBarHeader extends RelativeLayout implements
         } else if (v == mRingerContainer && mRingerContainer.isVisibleToUser()) {
             mActivityStarter.postStartActivityDismissingKeyguard(new Intent(
                     Settings.ACTION_SOUND_SETTINGS), 0);
+        } else if (v == mBatteryMeterView) {
+            Dependency.get(ActivityStarter.class).postStartActivityDismissingKeyguard(new Intent(
+                    Intent.ACTION_POWER_USAGE_SUMMARY),0);
+        } else if (v == mDateView) {
+            Uri.Builder builder = CalendarContract.CONTENT_URI.buildUpon();
+            builder.appendPath("time");
+            builder.appendPath(Long.toString(System.currentTimeMillis()));
+            Intent todayIntent = new Intent(Intent.ACTION_VIEW, builder.build());
+            Dependency.get(ActivityStarter.class).postStartActivityDismissingKeyguard(todayIntent, 0);
         }
     }
 
@@ -714,7 +732,10 @@ public class QuickStatusBarHeader extends RelativeLayout implements
                 android.R.attr.colorForeground);
         float intensity = getColorIntensity(colorForeground);
         int fillColor = mDualToneHandler.getSingleColor(intensity);
-        mBatteryRemainingIcon.onDarkChanged(tintArea, intensity, fillColor);
+
+        // Use SystemUI context to get battery meter colors, and let it use the default tint (white)
+        mBatteryMeterView.setColorsFromContext(mHost.getContext());
+        mBatteryMeterView.onDarkChanged(new Rect(), 0, DarkIconDispatcher.DEFAULT_ICON_TINT);
     }
 
     public void setCallback(Callback qsPanelCallback) {
