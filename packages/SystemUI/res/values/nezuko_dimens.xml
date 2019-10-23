@@ -43,4 +43,9 @@
 
     <dimen name="deeznutzs">0dp</dimen>
 
+    <!-- Binary clock -->
+    <dimen name="binary_clock_dot_size">8dp</dimen>
+    <dimen name="binary_clock_stroke_width">2dp</dimen>
+    <dimen name="binary_clock_width">100dp</dimen>
+    <dimen name="binary_clock_height">100dp</dimen>
 </resources>

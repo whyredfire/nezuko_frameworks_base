@@ -21,4 +21,9 @@
     <color name="nezuko_qs_footer_drag_handle">#ffc8c8c8</color>
     <color name="nez_contorl_bg_color_cardview_light">#ffffff</color>
 
+    <!-- Binary clock -->
+    <color name="binary_clock_dot_color">#ffffff</color>
+    <color name="binary_clock_empty_dot_color">#ffffff</color>
+    <color name="binary_clock_ambient_dot_color">#ffffff</color>
+    <color name="binary_clock_ambient_empty_dot_color">#ffffff</color>
 </resources>
