@@ -20,6 +20,9 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.text.BidiFormatter;
+import android.text.format.Formatter;
+import android.text.format.Formatter.BytesResult;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -60,15 +63,18 @@ public class DataUsageDetailView extends LinearLayout {
         FontSizeUtils.updateFontSize(this, R.id.usage_period_text, R.dimen.qs_data_usage_text_size);
         FontSizeUtils.updateFontSize(this, R.id.usage_info_bottom_text,
                 R.dimen.qs_data_usage_text_size);
+        FontSizeUtils.updateFontSize(this, R.id.daily_usage_title, R.dimen.qs_data_usage_text_size);
+        FontSizeUtils.updateFontSize(this, R.id.daily_usage_text, R.dimen.qs_data_usage_usage_text_size);
     }
 
-    public void bind(DataUsageController.DataUsageInfo info) {
+    public void bind(DataUsageController.DataUsageInfo info, DataUsageController.DataUsageInfo info_daily) {
         final Resources res = mContext.getResources();
         final int titleId;
         final long bytes;
         ColorStateList usageColorState = null;
         final String top;
         String bottom = null;
+        final long dailyBytes = info_daily.usageLevel;
         if (info.usageLevel < info.warningLevel || info.limitLevel <= 0) {
             // under warning, or no limit
             titleId = R.string.quick_settings_cellular_detail_data_usage;
@@ -120,6 +126,11 @@ public class DataUsageDetailView extends LinearLayout {
         if (!showLevel) {
             infoTop.setVisibility(View.GONE);
         }
+        final TextView daily_usage_title = findViewById(R.id.daily_usage_title);
+        daily_usage_title.setText(R.string.daily_data_usage_title);
+        final TextView daily_usage = findViewById(R.id.daily_usage_text);
+        daily_usage.setText(formatDataUsage(dailyBytes));
+        daily_usage.setTextColor(usageColorState);
 
     }
 
@@ -139,4 +150,12 @@ public class DataUsageDetailView extends LinearLayout {
         }
         return FORMAT.format(val * (bytes < 0 ? -1 : 1)) + " " + suffix;
     }
+
+    private CharSequence formatDataUsage(long byteValue) {
+        final BytesResult res = Formatter.formatBytes(mContext.getResources(), byteValue,
+                Formatter.FLAG_IEC_UNITS);
+        return BidiFormatter.getInstance().unicodeWrap(mContext.getString(
+                com.android.internal.R.string.fileSizeSuffix, res.value, res.units));
+    }
+
 }

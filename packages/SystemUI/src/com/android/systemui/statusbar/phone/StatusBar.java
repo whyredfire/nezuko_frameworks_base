@@ -405,6 +405,7 @@ public class StatusBar extends SystemUI implements DemoMode,
 
     // settings
     private QSPanel mQSPanel;
+    private QuickStatusBarHeader mQuickStatusBarHeader;
 
     KeyguardIndicationController mKeyguardIndicationController;
 
@@ -2024,6 +2025,9 @@ public class StatusBar extends SystemUI implements DemoMode,
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.QS_COLUMNS_LANDSCAPE),
                     false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                        Settings.System.QS_DATAUSAGE),
+                        false, this, UserHandle.USER_ALL);
         }
 
         @Override
@@ -4521,4 +4525,11 @@ public class StatusBar extends SystemUI implements DemoMode,
     public void suppressAmbientDisplay(boolean suppressed) {
         mDozeServiceHost.setDozeSuppressed(suppressed);
     }
+
+    public void updateDataUsageImage() {
+        if (mQuickStatusBarHeader != null) {
+            mQuickStatusBarHeader.updateDataUsageImage();
+        }
+    }
+
 }
