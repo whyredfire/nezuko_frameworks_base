@@ -652,6 +652,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     private static final int MSG_LAUNCH_ASSIST_LONG_PRESS = 24;
     private static final int MSG_POWER_VERY_LONG_PRESS = 25;
     private static final int MSG_RINGER_TOGGLE_CHORD = 26;
+    private static final int MSG_TOGGLE_TORCH = 28;
 
     private CameraManager mCameraManager;
     private String mRearFlashCameraId;
@@ -1377,7 +1378,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         if (FactoryTest.isLongPressOnPowerOffEnabled()) {
             return LONG_PRESS_POWER_SHUT_OFF_NO_CONFIRM;
         }
-        if (mTorchLongPressPowerEnabled && !isScreenOn()) {
+        if (mTorchLongPressPowerEnabled && (!isScreenOn() || isDozeMode() || mTorchEnabled)) {
             return LONG_PRESS_POWER_TORCH;
         }
         return mLongPressOnPowerBehavior;
