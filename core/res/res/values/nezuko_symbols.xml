@@ -34,5 +34,6 @@
   <java-symbol type="bool" name="config_cleanupUnusedFingerprints" />
  <!-- Whether notify fingerprint client of successful cancelled authentication -->
   <java-symbol type="bool" name="config_notifyClientOnFingerprintCancelSuccess" />
-
+  <!-- Enable face auth only when swiping security view -->
+  <java-symbol type="bool" name="config_faceAuthOnlyOnSecurityView" />
 </resources>
