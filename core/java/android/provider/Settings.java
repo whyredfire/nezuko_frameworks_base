@@ -5033,6 +5033,14 @@ public final class Settings {
         public static final String AUTO_ACCENT_TYPE = "auto_accent_type";
 
         /**
+         * Sensor blocked packages
+         * @hide
+         */
+        public static final String SENSOR_BLOCKED_APP = "sensor_blocked_app";
+        public static final String SENSOR_BLOCKED_APP_DUMMY = "sensor_blocked_app_dummy";
+
+
+        /**
          * These are all public system settings
          *
          * @hide
