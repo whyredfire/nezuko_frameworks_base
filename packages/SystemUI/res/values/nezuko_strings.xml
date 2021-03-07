@@ -60,8 +60,18 @@
     <string name="qs_data_switch_toast_1">Currently only one SIM card is inserted</string>
     <string name="qs_data_switch_changed_1">Using SIM 1 for Mobile data</string>
     <string name="qs_data_switch_changed_2">Using SIM 2 for Mobile data</string>
+
     <!-- Daily data usage -->
     <string name="daily_data_usage_title">Today\'s usage</string>
+    
     <!-- App Lock -->
     <string name="applock_unlock">Unlock app</string>
+
+    <!-- Kill button in notification guts -->
+    <string name="force_stop_dlg_title">Force stop?</string>
+    <string name="force_stop_dlg_text">If you force stop an app, it may misbehave.</string>
+    <string name="dlg_ok" translatable="false">@android:string/ok</string>
+    <string name="dlg_cancel" translatable="false">@android:string/cancel</string>
+    <string name="guts_force_close_app">Close App</string>
+
 </resources>
