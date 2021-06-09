@@ -19,5 +19,5 @@
     <item sysui:optedOut="true"
           android:color="?android:attr/colorButtonNormal"/>
 
-    <item android:color="#000000"/>
+    <item android:color="#FFFFFF"/>
 </selector>

@@ -1582,11 +1582,18 @@
     <string name="volume_stream_content_description_mute_a11y">%1$s. Tap to mute.</string>
 
     <!-- Hint for accessibility. For example: double tap to mute [CHAR_LIMIT=NONE] -->
-    <string name="volume_ringer_hint_mute">mute</string>
+    <string name="volume_ringer_hint_mute">Mute</string>
     <!-- Hint for accessibility. For example: double tap to unmute [CHAR_LIMIT=NONE] -->
-    <string name="volume_ringer_hint_unmute">unmute</string>
+    <string name="volume_ringer_hint_unmute">Unmute</string>
     <!-- Hint for accessibility. For example: double tap to vibrate [CHAR_LIMIT=NONE] -->
-    <string name="volume_ringer_hint_vibrate">vibrate</string>
+    <string name="volume_ringer_hint_vibrate">Vibrate</string>
+    
+    <!-- Hint for accessibility. For example: double tap to mute [CHAR_LIMIT=NONE] -->
+    <string name="volume_ringer_hint_muted">Muted</string>
+    <!-- Hint for accessibility. For example: double tap to unmute [CHAR_LIMIT=NONE] -->
+    <string name="volume_ringer_hint_unmuted">Unmuted</string>
+    <!-- Hint for accessibility. For example: double tap to vibrate [CHAR_LIMIT=NONE] -->
+    <string name="volume_ringer_hint_vibrating">Vibrate</string>
 
     <string name="volume_dialog_title">%s volume controls</string>
 

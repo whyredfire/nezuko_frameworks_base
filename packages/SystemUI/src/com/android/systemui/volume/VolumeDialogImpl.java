@@ -135,6 +135,7 @@ public class VolumeDialogImpl implements VolumeDialog,
     private ViewGroup mRinger;
     private ImageButton mRingerIcon;
     private ViewGroup mODICaptionsView;
+    private TextView mModeIndicator;
     private CaptionsToggleImageButton mODICaptionsIcon;
     private View mSettingsView;
     private ImageButton mSettingsIcon;
@@ -260,6 +261,7 @@ public class VolumeDialogImpl implements VolumeDialog,
 
         mDialogRowsView = mDialog.findViewById(R.id.volume_dialog_rows);
         mRinger = mDialog.findViewById(R.id.ringer);
+        mModeIndicator = mDialog.findViewById(R.id.volume_row_type);
         if (mRinger != null) {
             mRingerIcon = mRinger.findViewById(R.id.ringer_icon);
             mZenIcon = mRinger.findViewById(R.id.dnd_icon);
@@ -839,12 +841,16 @@ public class VolumeDialogImpl implements VolumeDialog,
             switch (mState.ringerModeInternal) {
                 case AudioManager.RINGER_MODE_VIBRATE:
                     mRingerIcon.setImageResource(R.drawable.ic_volume_ringer_vibrate);
+                    mModeIndicator.setVisibility(VISIBLE);
+                    mModeIndicator.setText(R.string.volume_ringer_hint_vibrating);
                     addAccessibilityDescription(mRingerIcon, RINGER_MODE_VIBRATE,
                             mContext.getString(R.string.volume_ringer_hint_mute));
                     mRingerIcon.setTag(Events.ICON_STATE_VIBRATE);
                     break;
                 case AudioManager.RINGER_MODE_SILENT:
                     mRingerIcon.setImageResource(R.drawable.ic_volume_ringer_mute);
+                    mModeIndicator.setVisibility(VISIBLE);
+                    mModeIndicator.setText(R.string.volume_ringer_hint_muted);
                     mRingerIcon.setTag(Events.ICON_STATE_MUTE);
                     addAccessibilityDescription(mRingerIcon, RINGER_MODE_SILENT,
                             mContext.getString(R.string.volume_ringer_hint_unmute));
@@ -854,14 +860,18 @@ public class VolumeDialogImpl implements VolumeDialog,
                     boolean muted = (mAutomute && ss.level == 0) || ss.muted;
                     if (!isZenMuted && muted) {
                         mRingerIcon.setImageResource(R.drawable.ic_volume_ringer_mute);
+                        mModeIndicator.setVisibility(VISIBLE);
+                        mModeIndicator.setText(R.string.volume_ringer_hint_muted);
                         addAccessibilityDescription(mRingerIcon, RINGER_MODE_NORMAL,
                                 mContext.getString(R.string.volume_ringer_hint_unmute));
                         mRingerIcon.setTag(Events.ICON_STATE_MUTE);
                     } else {
                         mRingerIcon.setImageResource(R.drawable.ic_volume_ringer);
+                        mModeIndicator.setVisibility(VISIBLE);
+                        mModeIndicator.setText(R.string.volume_ringer_hint_unmuted);
                         if (mController.hasVibrator()) {
                             addAccessibilityDescription(mRingerIcon, RINGER_MODE_NORMAL,
-                                    mContext.getString(R.string.volume_ringer_hint_vibrate));
+                                    mContext.getString(R.string.volume_ringer_hint_vibrating));
                         } else {
                             addAccessibilityDescription(mRingerIcon, RINGER_MODE_NORMAL,
                                     mContext.getString(R.string.volume_ringer_hint_mute));
@@ -1026,7 +1036,6 @@ public class VolumeDialogImpl implements VolumeDialog,
         // update icon
         final boolean iconEnabled = (mAutomute || ss.muteSupported) && !zenMuted;
         row.icon.setEnabled(iconEnabled);
-        row.icon.setAlpha(iconEnabled ? 1 : 0.5f);
         final int iconRes =
                 isRingVibrate ? R.drawable.ic_volume_ringer_vibrate
                         : isRingSilent || zenMuted ? row.iconMuteRes
@@ -1113,10 +1122,7 @@ public class VolumeDialogImpl implements VolumeDialog,
         if (tint == row.cachedTint) return;
         row.slider.setProgressTintList(tint);
         row.slider.setThumbTintList(tint);
-        row.slider.setProgressBackgroundTintList(tint);
         row.slider.setAlpha(((float) alpha) / 255);
-        row.icon.setImageTintList(tint);
-        row.icon.setImageAlpha(alpha);
         row.cachedTint = tint;
     }
 
