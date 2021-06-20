@@ -41,4 +41,6 @@
     <dimen name="applock_icon_dimension">54dp</dimen>
     <dimen name="screenrecord_dot_size">48dp</dimen>
 
+    <dimen name="deeznutzs">0dp</dimen>
+
 </resources>
